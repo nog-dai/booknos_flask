@@ -6,9 +6,9 @@ ENV TZ="Asia/Tokyo" \
     LC_ALL="ja_JP.UTF-8"
 
 RUN apt update \
-  && apt install -y gcc vim
+  && apt install -y gcc vim tree lsof
 
 COPY requirements.txt ./
 RUN pip install -r requirements.txt
 
-ENTRYPOINT [ "uwsgi", "--ini", "uwsgi.ini" ]
+ENTRYPOINT ["uwsgi", "--ini", "/var/www/app/uwsgi.ini"]

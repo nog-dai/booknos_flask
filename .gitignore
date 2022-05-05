@@ -1,3 +1,4 @@
 .envrc
 /db/logs/*
 /db/mysql/*
+__pycache__

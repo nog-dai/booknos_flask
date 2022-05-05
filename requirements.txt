@@ -1,6 +1,7 @@
-uwsgi
-sqlalchemy
-flask_sqlalchemy
-flask_migrate
+flask
+flask-debugtoolbar
+flask-sqlalchemy
+flask-migrate
+flask-wtf
 pymysql
-mysqlclient
+uwsgi

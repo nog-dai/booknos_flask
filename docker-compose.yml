@@ -6,7 +6,7 @@ services:
     container_name: booknos_web
     build:
       context: .
-      dockerfile: ./web/Dockerfile
+      dockerfile: ./docker/web/Dockerfile
     ports:
       - 80:80
     depends_on:
@@ -15,7 +15,7 @@ services:
     container_name: booknos_app
     build:
       context: .
-      dockerfile: ./app/main/Dockerfile
+      dockerfile: ./docker/app/Dockerfile
     expose:
       - 5000
     volumes:
@@ -23,26 +23,26 @@ services:
     environment:
       TZ: Asia/Tokyo
       FLASK_ENV: development
-      FLASK_APP: __init__.py
-      MYSQL_DATABASE:
-      MYSQL_USER:
-      MYSQL_PASSWORD:
+      FLASK_APP: 'app.app:create_app("local")'
+      MYSQL_DATABASE: booknos
+      MYSQL_USER: booknos
+      MYSQL_PASSWORD: booknos
     links:
       - db
-  # db:
-  #   container_name: booknos_db
-  #   build:
-  #     context: .
-  #     dockerfile: ./db/Dockerfile
-  #   volumes:
-  #     - ./db/mysql:/var/lib/mysql
-  #     - ./db/logs/mysql:/var/log/mysql
-  #   environment:
-  #     MYSQL_ROOT_PASSWORD: booknos
-  #     MYSQL_DATABASE: booknos
-  #     MYSQL_USER: booknos
-  #     MYSQL_PASSWORD: booknos
-  #     TZ: 'Asia/Tokyo'
-  #   command: mysqld --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
-  #   ports:
-  #     - 3306:3306
+  db:
+    container_name: booknos_db
+    build:
+      context: .
+      dockerfile: ./docker/db/Dockerfile
+    volumes:
+      - ./db/mysql:/var/lib/mysql
+      - ./db/logs/mysql:/var/log/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: booknos
+      MYSQL_DATABASE: booknos
+      MYSQL_USER: booknos
+      MYSQL_PASSWORD: booknos
+      TZ: 'Asia/Tokyo'
+    command: mysqld --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+    ports:
+      - 3306:3306

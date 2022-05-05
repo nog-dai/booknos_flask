@@ -1,8 +1,8 @@
 from datetime import datetime
-from app.main.database import db
+from app.app import db
 
 
-class Book(db.model):
+class Book(db.Model):
     __tablename__ = 'books'
 
     id = db.Column(db.Integer, primary_key=True)
